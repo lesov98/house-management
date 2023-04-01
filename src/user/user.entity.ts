@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { UserRole } from './user-role.entity';
+import { UserRole } from '../../entities/user-role.entity';
+import { Approval } from '../../entities/approval.entity';
+import { Message } from '../message/message.entity';
 
 @Entity()
 export class User {
@@ -17,6 +19,9 @@ export class User {
 
   @Column({ name: 'last_name' })
   lastName: string;
+
+  @Column({ name: 'username' })
+  username: string;
 
   @Column({ name: 'phone_number' })
   phoneNumber: string;
@@ -40,4 +45,13 @@ export class User {
 
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   userRoles: UserRole[];
+
+  @OneToMany(() => Approval, (approval) => approval.user)
+  approvals: Approval[];
+
+  @OneToMany(() => Message, (message) => message.receiver)
+  receivedMessages: Message[];
+
+  @OneToMany(() => Message, (message) => message.sender)
+  sentMessages: Message[];
 }
