@@ -19,8 +19,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { User } from './user/user.entity';
 import { Message } from './message/message.entity';
 import { Approval } from 'entities/approval.entity';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserService } from './user/user.service';
+import { UserRepository } from './user/user.repository';
+
 @Module({
   imports: [
+    MessageModule,
+    UserModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forRoot({
       ...config,
       entities: [
@@ -39,14 +50,23 @@ import { Approval } from 'entities/approval.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>(process.env.JWT_SECRET),
+        signOptions: { expiresIn: '1h' },
+      }),
     }),
-    MessageModule,
-    UserModule,
   ],
-  controllers: [AppController, MessageController],
-  providers: [AppService, MessageService],
+  controllers: [AppController, MessageController, AuthController],
+  providers: [
+    UserService,
+    UserRepository,
+    AppService,
+    MessageService,
+    AuthService,
+  ],
+  exports: [UserModule],
 })
 export class AppModule {}
