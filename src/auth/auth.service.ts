@@ -4,7 +4,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as jwt from 'jsonwebtoken';
 import { UserDTO } from 'src/user/dto/user.dto';
 import { User } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -22,7 +21,7 @@ export class AuthService {
   private readonly jwtSecret: string = process.env.JWT_SECRET;
 
   async login(userDto: UserDTO): Promise<{ accessToken: string }> {
-    const user = await this.userService.findOneByEmail(userDto.email);
+    const user = await this.userService.findByEmail(userDto.email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -61,5 +60,14 @@ export class AuthService {
 
     const newUser = await this.userRepository.save(user);
     return newUser;
+  }
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.userService.findByEmail(email);
+
+    if (user && user.comparePassword(password)) {
+      return user;
+    }
+
+    return null;
   }
 }

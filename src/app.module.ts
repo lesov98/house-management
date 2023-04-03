@@ -15,15 +15,12 @@ import { MessageService } from './message/message.service';
 import { MessageController } from './message/message.controller';
 import { MessageModule } from './message/message.module';
 import { UserModule } from './user/user.module';
-import { JwtModule } from '@nestjs/jwt';
 import { User } from './user/user.entity';
 import { Message } from './message/message.entity';
 import { Approval } from 'entities/approval.entity';
 import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserService } from './user/user.service';
-import { UserRepository } from './user/user.repository';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -50,23 +47,11 @@ import { UserRepository } from './user/user.repository';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>(process.env.JWT_SECRET),
-        signOptions: { expiresIn: '1h' },
-      }),
-    }),
+    ConfigModule,
+    AuthModule,
   ],
   controllers: [AppController, MessageController, AuthController],
-  providers: [
-    UserService,
-    UserRepository,
-    AppService,
-    MessageService,
-    AuthService,
-  ],
+  providers: [AppService, MessageService],
   exports: [UserModule],
 })
 export class AppModule {}
