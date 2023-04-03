@@ -1,12 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { Building } from './building.entity';
 import { User } from '../src/user/user.entity';
+import { BaseEntity } from './base-entity';
 
 @Entity()
-export class Approval {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Approval extends BaseEntity {
   @Column()
   buildingId: number;
 

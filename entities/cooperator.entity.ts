@@ -1,11 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BuildingCooperator } from './building-cooperator.entity';
+import { BaseEntity } from './base-entity';
 
 @Entity()
-export class Cooperator {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Cooperator extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
@@ -14,20 +12,6 @@ export class Cooperator {
 
   @Column({ name: 'phone_number' })
   phoneNumber: string;
-
-  @Column({
-    name: 'created_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createdAt: Date;
-
-  @Column({
-    name: 'updated_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  updatedAt: Date;
 
   @OneToMany(
     () => BuildingCooperator,
