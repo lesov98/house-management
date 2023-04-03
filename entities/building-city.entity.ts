@@ -1,20 +1,11 @@
-import {
-  Entity,
-  Unique,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-  Column,
-} from 'typeorm';
+import { Entity, Unique, ManyToOne, JoinColumn } from 'typeorm';
 import { Building } from './building.entity';
 import { City } from './city.entity';
+import { BaseEntity } from './base-entity';
 
 @Entity()
 @Unique(['building', 'city'])
-export class BuildingCity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class BuildingCity extends BaseEntity {
   @ManyToOne(() => Building, { onDelete: 'CASCADE' })
   @JoinColumn()
   building: Building;
@@ -22,10 +13,4 @@ export class BuildingCity {
   @ManyToOne(() => City, { onDelete: 'CASCADE' })
   @JoinColumn()
   city: City;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
 }

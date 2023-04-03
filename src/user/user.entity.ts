@@ -25,20 +25,6 @@ export class User extends BaseEntity {
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
-  @Column({
-    name: 'created_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createdAt: Date;
-
-  @Column({
-    name: 'updated_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  updatedAt: Date;
-
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   userRoles: UserRole[];
 

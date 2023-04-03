@@ -10,7 +10,7 @@ import { User } from '../user/user.entity';
 
 @Entity()
 export class Message {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()

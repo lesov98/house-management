@@ -1,27 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { UserRole } from './user-role.entity';
+import { BaseEntity } from './base-entity';
 
 @Entity()
-export class Role {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Role extends BaseEntity {
   @Column({ unique: true })
   name: string;
-
-  @Column({
-    name: 'created_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createdAt: Date;
-
-  @Column({
-    name: 'updated_at',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  updatedAt: Date;
 
   @OneToMany(() => UserRole, (userRole) => userRole.role)
   userRoles: UserRole[];
