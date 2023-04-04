@@ -6,9 +6,9 @@ import { UserRole } from './entities/user-role.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRole, UserRoleRepository])],
+  imports: [TypeOrmModule.forFeature([UserRoleRepository])],
   controllers: [UserRoleController],
-  providers: [UserRoleService],
-  exports: [UserRoleRepository],
+  providers: [UserRoleService, UserRoleRepository],
+  exports: [UserRoleRepository, UserRole],
 })
 export class UserRoleModule {}
