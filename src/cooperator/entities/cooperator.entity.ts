@@ -1,6 +1,6 @@
+import { BuildingCooperator } from 'src/building-cooperator/entities/building-cooperator.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
-import { BuildingCooperator } from './building-cooperator.entity';
-import { BaseEntity } from './base-entity';
+import { BaseEntity } from 'entities/base-entity';
 
 @Entity()
 export class Cooperator extends BaseEntity {

@@ -1,11 +1,12 @@
-import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
-import { UserRole } from '../../entities/user-role.entity';
-import { Approval } from '../../entities/approval.entity';
-import { Message } from '../message/message.entity';
+import { Entity, Column, OneToMany, BeforeInsert, Index } from 'typeorm';
+import { Message } from '../message/entities/message.entity';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity } from 'entities/base-entity';
+import { Approval } from 'src/approval/entities/approval.entity';
+import { UserRole } from 'src/user-role/entities/user-role.entity';
 
 @Entity()
+@Index(['email'])
 export class User extends BaseEntity {
   @Column({ unique: true })
   email: string;

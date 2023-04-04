@@ -1,7 +1,7 @@
 import { Entity, Unique, ManyToOne, JoinColumn } from 'typeorm';
-import { Building } from './building.entity';
-import { City } from './city.entity';
-import { BaseEntity } from './base-entity';
+import { Building } from 'src/building/entities/building.entity';
+import { City } from 'src/city/entities/city.entity';
+import { BaseEntity } from 'entities/base-entity';
 
 @Entity()
 @Unique(['building', 'city'])

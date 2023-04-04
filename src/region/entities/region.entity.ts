@@ -1,5 +1,5 @@
+import { BaseEntity } from 'entities/base-entity';
 import { Entity, Column } from 'typeorm';
-import { BaseEntity } from './base-entity';
 
 @Entity()
 export class Region extends BaseEntity {
