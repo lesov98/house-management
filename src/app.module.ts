@@ -59,7 +59,6 @@ import { UserModule } from './user/user.module';
       synchronize: true,
       autoLoadEntities: true,
       logging: 'all',
-      name: 'default',
     }),
     ConfigModule,
     AuthModule,
