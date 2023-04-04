@@ -35,9 +35,6 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    MessageModule,
-    UserModule,
-    RolesModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
@@ -62,7 +59,6 @@ import { UserModule } from './user/user.module';
     }),
     ConfigModule,
     AuthModule,
-    RolesModule,
     RegionModule,
     CityModule,
     BuildingModule,
@@ -71,6 +67,9 @@ import { UserModule } from './user/user.module';
     BuildingCityModule,
     UserRoleModule,
     ApprovalModule,
+    MessageModule,
+    UserModule,
+    RolesModule,
   ],
   controllers: [AppController, MessageController, AuthController],
   providers: [AppService, MessageService, RolesService],
