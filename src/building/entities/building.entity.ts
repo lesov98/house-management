@@ -1,11 +1,12 @@
+import { Approval } from 'src/approval/entities/approval.entity';
+import { BuildingCity } from 'src/building-city/entities/building-city.entity';
+import { BuildingCooperator } from 'src/building-cooperator/entities/building-cooperator.entity';
+import { Message } from 'src/message/entities/message.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
-import { BuildingCity } from './building-city.entity';
-import { BuildingCooperator } from './building-cooperator.entity';
-import { Approval } from './approval.entity';
-import { Message } from '../src/message/message.entity';
+import { BaseEntity } from 'entities/base-entity';
 
 @Entity()
-export class Building {
+export class Building extends BaseEntity {
   @Column({ unique: true })
   name: string;
 

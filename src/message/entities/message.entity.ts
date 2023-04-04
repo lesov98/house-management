@@ -5,8 +5,8 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Building } from '../../entities/building.entity';
-import { User } from '../user/user.entity';
+import { User } from '../../user/user.entity';
+import { Building } from 'src/building/entities/building.entity';
 
 @Entity()
 export class Message {

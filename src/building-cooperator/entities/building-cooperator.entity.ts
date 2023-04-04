@@ -1,10 +1,11 @@
+import { Building } from 'src/building/entities/building.entity';
+import { Cooperator } from 'src/cooperator/entities/cooperator.entity';
 import { Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
-import { Building } from './building.entity';
-import { Cooperator } from './cooperator.entity';
+import { BaseEntity } from 'entities/base-entity';
 
 @Entity()
 @Unique(['building', 'cooperator'])
-export class BuildingCooperator {
+export class BuildingCooperator extends BaseEntity {
   @ManyToOne(() => Building, { onDelete: 'CASCADE' })
   @JoinColumn()
   building: Building;

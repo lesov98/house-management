@@ -1,9 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { RolesSeeder } from 'seeders/RolesSeeder';
+import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
 
 async function bootstrap() {
+  initializeTransactionalContext();
   const app = await NestFactory.create(AppModule);
+  const rolesSeeder = app.get(RolesSeeder);
+  await rolesSeeder.seed();
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -12,7 +18,6 @@ async function bootstrap() {
       validationError: { target: false },
     }),
   );
-
-  await app.listen(3000);
+  await app.listen(-process.env.SERVER_PORT);
 }
 bootstrap();
